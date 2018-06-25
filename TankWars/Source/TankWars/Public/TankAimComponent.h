@@ -9,6 +9,7 @@
 #include "TankAimComponent.generated.h"
 
 class UTankBarrel;
+class UTankTurret;
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TANKWARS_API UTankAimComponent : public UActorComponent
 {
@@ -17,11 +18,14 @@ class TANKWARS_API UTankAimComponent : public UActorComponent
 private:	
 	// Sets default values for this component's properties
 	UTankAimComponent();
-	void MoveBarrelTowards(FVector AimDirection);
+	void MoveBarrelTowards(FRotator DeltaRotation);
+	void MoveTurretTowards(FRotator DeltaRotation);
 	
 	UTankBarrel *Barrel;
+	UTankTurret *Turret;
 public:
 	void AimAt(FVector HitLocation,float LaunchSpeed);
 	void SetBarrelComponent(UTankBarrel *BarrelToSet);
+	void SetTurretComponent(UTankTurret *TurretToSet);
 	
 };

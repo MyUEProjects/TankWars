@@ -2,6 +2,7 @@
 
 #include "TankAimComponent.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 
 // Sets default values for this component's properties
 UTankAimComponent::UTankAimComponent()
@@ -15,14 +16,18 @@ UTankAimComponent::UTankAimComponent()
 
 void UTankAimComponent::AimAt(FVector HitLocation,float LaunchSpeed)
 {
-	if (!Barrel)
+	if (!Barrel || !Turret)
 		return;
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false,0,0,ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);
+		FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
+		FRotator AimRotation = AimDirection.Rotation();
+		FRotator DeltaRotation = AimRotation - BarrelRotation;
+		MoveBarrelTowards(DeltaRotation);
+		MoveTurretTowards(DeltaRotation);
 	}
 	else
 		UE_LOG(LogTemp, Warning, TEXT("Unable to Suggest Velocity"));
@@ -30,15 +35,23 @@ void UTankAimComponent::AimAt(FVector HitLocation,float LaunchSpeed)
 	
 }
 
+//Setters
 void UTankAimComponent::SetBarrelComponent(UTankBarrel *BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
-
-void UTankAimComponent::MoveBarrelTowards(FVector AimDirection)
+void UTankAimComponent::SetTurretComponent(UTankTurret *TurretToSet)
 {
-	FRotator BarrelRotation = Barrel->GetForwardVector().Rotation();
-	FRotator AimRotation = AimDirection.Rotation();
-	FRotator DeltaTotation = AimRotation - BarrelRotation;
-	Barrel->Elevate(5); //TODO Magic Number
+	Turret = TurretToSet;
+}
+
+void UTankAimComponent::MoveBarrelTowards(FRotator DeltaRotation)
+{
+
+	Barrel->Elevate(DeltaRotation.Pitch); //TODO Magic Number
+}
+
+void UTankAimComponent::MoveTurretTowards(FRotator DeltaRotation)
+{
+	Turret->Rotate(DeltaRotation.Yaw);
 }
