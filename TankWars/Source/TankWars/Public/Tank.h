@@ -27,8 +27,10 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 4000;
-	
+		float LaunchSpeed = 4000;
+	UPROPERTY(EditAnywhere, Category = Firing)
+		float ReloadTimeinSeconds = 3;
+	float LastFireTime = 0;
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
@@ -42,7 +44,6 @@ public:
 		void SetBarrelReference(UTankBarrel *BarrelToSet);
 	UFUNCTION(BlueprintCallable, Category = Setup)
 		void SetTurretReference(UTankTurret *TurretToSet);
-	
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = Firing)
 		void Fire();

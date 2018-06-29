@@ -19,13 +19,13 @@ class TANKWARS_API ATankPlayerController : public APlayerController
 
 private:
 		//Variables for Crosshair position
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float CrossHairXLocation = 0.5;
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float CrossHairYLocation = 0.333;
 		
 		//Variables for Line Trace
-		UPROPERTY(EditAnywhere)
+		UPROPERTY(EditDefaultsOnly)
 		float LineTraceRange = 1000000.0;
 		FVector HitLocation;
 
