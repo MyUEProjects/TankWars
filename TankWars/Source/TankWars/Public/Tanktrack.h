@@ -4,17 +4,22 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
-#include "Tanktrack.generated.h"
+#include "TankTrack.generated.h"
 
 /**
  * 
  */
-UCLASS()
-class TANKWARS_API UTanktrack : public UStaticMeshComponent
+UCLASS(meta = (BlueprintSpawnableComponent))
+class TANKWARS_API UTankTrack : public UStaticMeshComponent
 {
 	GENERATED_BODY()
 	
+public:
+	UFUNCTION(BlueprintCallable, Category = Movement)
+		void Throttle(float ThrottleSpeed);
 	
-	
+	//In Newtons
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float MaxThrottleSpeed = 400000;
 	
 };
