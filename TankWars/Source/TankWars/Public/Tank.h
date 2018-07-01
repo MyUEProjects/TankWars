@@ -11,6 +11,7 @@
 class UTankBarrel;
 class UTankTurret;
 class AProjectile;
+class UTankMovementComponent;
 UCLASS()
 class TANKWARS_API ATank : public APawn
 {
@@ -47,7 +48,8 @@ public:
 	void AimAt(FVector HitLocation);
 	UFUNCTION(BlueprintCallable, Category = Firing)
 		void Fire();
-
 	
+	UPROPERTY(BlueprintReadOnly)
+		UTankMovementComponent *MovementComponent = nullptr;
 	
 };
