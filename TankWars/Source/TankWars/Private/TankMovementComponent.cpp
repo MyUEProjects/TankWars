@@ -8,6 +8,7 @@ void UTankMovementComponent::IntendToMoveForward(float Throw)
 {
 	if (!LeftTrack || !RightTrack)
 		return;
+
 	LeftTrack->Throttle(Throw);
 	RightTrack->Throttle(Throw);
 }
@@ -16,6 +17,7 @@ void UTankMovementComponent::IntendToMoveRight(float Throw)
 {
 	if (!LeftTrack || !RightTrack)
 		return;
+	
 	LeftTrack->Throttle(Throw);
 	RightTrack->Throttle(-Throw);
 }
@@ -27,4 +29,16 @@ void UTankMovementComponent::InitializeTrack(UTankTrack *LeftTrackToSet, UTankTr
 
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
+}
+
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	auto TankDirection = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto PlayerDirection = MoveVelocity.GetSafeNormal();
+
+	float DirectionToMove = FVector::DotProduct(TankDirection, PlayerDirection);
+	IntendToMoveForward(DirectionToMove);
+	
+	FVector RotationToMove = FVector::CrossProduct(TankDirection,PlayerDirection);
+	IntendToMoveRight(RotationToMove.Z);
 }

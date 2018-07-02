@@ -5,9 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/NavMovementComponent.h"
 #include "TankMovementComponent.generated.h"
+
 class UTankTrack;
+
 /**
- * 
+ *Responsible for making the tanks move 
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TANKWARS_API UTankMovementComponent : public UNavMovementComponent
@@ -15,14 +17,18 @@ class TANKWARS_API UTankMovementComponent : public UNavMovementComponent
 	GENERATED_BODY()
 	
 public:
-	UFUNCTION(BlueprintCallable, Category = InputAccept)
+	UFUNCTION(BlueprintCallable, Category = "InputAccept")
 		void IntendToMoveForward(float Throw);
-	UFUNCTION(BlueprintCallable, Category = InputAccept)
+	UFUNCTION(BlueprintCallable, Category = "InputAccept")
 		void IntendToMoveRight(float Throw);
-	UFUNCTION(BlueprintCallable, Category = InputAccept)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 		void InitializeTrack(UTankTrack *LeftTrackToSet, UTankTrack *RightTrackToSet);
+
 	
 private:
 	UTankTrack *LeftTrack = nullptr;
 	UTankTrack *RightTrack = nullptr;
+
+	//Called by PathFinder Logic by AI Controller
+	virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
 };
