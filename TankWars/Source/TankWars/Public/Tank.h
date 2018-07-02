@@ -38,7 +38,10 @@ private:
 	UTankBarrel *Barrel;
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimComponent *TankAimComponent = nullptr;
+	UPROPERTY(BlueprintReadOnly)
+		UTankMovementComponent *MovementComponent = nullptr;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
@@ -49,7 +52,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Firing)
 		void Fire();
 	
-	UPROPERTY(BlueprintReadOnly)
-		UTankMovementComponent *MovementComponent = nullptr;
+
 	
 };

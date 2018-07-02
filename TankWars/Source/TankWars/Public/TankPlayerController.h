@@ -35,9 +35,13 @@ private:
 		virtual void Tick(float DeltaTime) override;
 		
 		//My own functions
-		ATank* GetControlledTank() const;
+		
 		//All functions below are used to get the AimAtCrosshair working
 		void AimAtCrosshair();
 		bool GetSightHitRayLocation(FVector &HitLocation);
 		bool GetVectorHitLocation(FVector CameraLookDirection, FVector &HitLocation) const;
+
+protected:
+	UFUNCTION(BlueprintCallable,Category = "Setup")
+		ATank * GetControlledTank() const;
 };
