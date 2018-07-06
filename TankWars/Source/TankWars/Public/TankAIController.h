@@ -7,10 +7,12 @@
 #include "Engine/World.h"
 #include "TankAIController.generated.h"
 
-/**
- * 
- */
 class ATank;
+class UTankAimComponent;
+
+/**
+*
+*/
 UCLASS()
 class TANKWARS_API ATankAIController : public AAIController
 {
@@ -27,4 +29,6 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		float MinDistanceFromPlayer = 3000;
 
+	UTankAimComponent *AimComponent;
+	float LaunchSpeed = 4000;
 };

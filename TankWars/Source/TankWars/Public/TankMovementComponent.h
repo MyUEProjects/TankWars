@@ -17,6 +17,7 @@ class TANKWARS_API UTankMovementComponent : public UNavMovementComponent
 	GENERATED_BODY()
 	
 public:
+
 	UFUNCTION(BlueprintCallable, Category = "InputAccept")
 		void IntendToMoveForward(float Throw);
 	UFUNCTION(BlueprintCallable, Category = "InputAccept")

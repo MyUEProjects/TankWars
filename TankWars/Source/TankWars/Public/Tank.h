@@ -8,8 +8,6 @@
 #include "Tank.generated.h"
 
 
-class AProjectile;
-class UTankMovementComponent;
 class UTankAimComponent;
 
 UCLASS()
@@ -18,19 +16,9 @@ class TANKWARS_API ATank : public APawn
 	GENERATED_BODY()
 
 private:
-	// Sets default values for this pawn's properties
+	// Constructor
 	ATank();
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 
-protected:
-	UPROPERTY(BlueprintReadOnly)
-		UTankAimComponent *TankAimComponent = nullptr;
-
-public:
-	void AimAt(FVector HitLocation);
-	UFUNCTION(BlueprintCallable)
-		void Fire();
 
 };

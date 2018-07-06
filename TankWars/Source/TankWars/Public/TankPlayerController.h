@@ -7,12 +7,13 @@
 #include "Engine/World.h"
 #include "TankPlayerController.generated.h"
 
-/**
- * 
- */
+
 class ATank;
 class UTankAimComponent;
 
+/**
+*
+*/
 UCLASS()
 class TANKWARS_API ATankPlayerController : public APlayerController
 {
@@ -42,9 +43,13 @@ private:
 		bool GetSightHitRayLocation(FVector &HitLocation);
 		bool GetVectorHitLocation(FVector CameraLookDirection, FVector &HitLocation) const;
 
+		UTankAimComponent *AimComponent;
+		float LaunchSpeed = 4000;
+
 protected:
 	UFUNCTION(BlueprintCallable,Category = "Setup")
 		ATank * GetControlledTank() const;
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimComponent *AimingComponentReference);
+
 };
