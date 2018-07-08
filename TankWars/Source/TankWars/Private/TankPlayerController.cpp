@@ -45,20 +45,20 @@ bool ATankPlayerController::GetSightHitRayLocation(FVector &HitLocation)
 	//Get Position of Trigger on the screen
 	int32 ViewPortSizeX, ViewPortSizeY;
 	GetViewportSize(ViewPortSizeX, ViewPortSizeY);
-	auto ScreentLocation = FVector2D(ViewPortSizeX*CrossHairXLocation, ViewPortSizeY*CrossHairYLocation);
+	auto ScreenLocation = FVector2D(ViewPortSizeX*CrossHairXLocation, ViewPortSizeY*CrossHairYLocation);
 
 	//Get Screen Look Direction(we don't need the location)
 	FVector CameraWorldLocation, CameraLookDirection;
-	if (DeprojectScreenPositionToWorld(ScreentLocation.X, ScreentLocation.Y, CameraWorldLocation, CameraLookDirection))
+	if (DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, CameraLookDirection))
 	{
 		//Get Hit Location and set it
-		GetVectorHitLocation(CameraLookDirection, HitLocation);
-		return true;
-	}
-	else
-		UE_LOG(LogTemp, Warning, TEXT("Unable to Get Look Direction"))
+		return GetVectorHitLocation(CameraLookDirection, HitLocation);
 
-		return false;
+	}
+	
+
+	
+	return false;
 }
 
 bool ATankPlayerController::GetVectorHitLocation(FVector CameraLookDirection, FVector &HitLocation) const

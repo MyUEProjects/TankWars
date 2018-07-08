@@ -28,13 +28,18 @@ class TANKWARS_API UTankAimComponent : public UActorComponent
 
 private:	
 	
+	virtual void BeginPlay() override;
 
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
 	//Functions to move the Barrel and Turret
 	void MoveBarrelTowards(FVector AimDirection);
+	bool IsBarrelMoving();
 	
 	UTankBarrel *Barrel;
 	UTankTurret *Turret;
+
+	FRotator AimDiff;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
 		float LaunchSpeed = 4000;

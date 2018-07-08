@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/World.h"
 #include "TankTrack.generated.h"
 
 /**
@@ -21,5 +22,18 @@ public:
 	//In Newtons
 	UPROPERTY(EditAnywhere, Category = Setup)
 		float MaxThrottleSpeed = 400000;
+
+	UTankTrack();
+
+	void ApplySidewaysForce();
+
+private:
+	virtual void BeginPlay() override;
+	void DriveTrack();
+
+	float CurrentThrottleSpeed = 0;
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	
 };
