@@ -56,8 +56,8 @@ void UTankAimComponent::Initialize(UTankBarrel *BarrelToSet, UTankTurret *Turret
 
 void UTankAimComponent::Fire()
 {
-		
-	if (FiringState != EFiringState::Reloading)
+	
+	if (FiringState == EFiringState::Locked || FiringState == EFiringState::Aiming)
 	{
 
 		if (!ensure(Barrel))
@@ -70,7 +70,13 @@ void UTankAimComponent::Fire()
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileBlueprint, SpawnLocation, SpawnRotation);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+		NumberOfBullets--;
 	}
+}
+
+int UTankAimComponent::GetNumberOfBullets()
+{
+	return NumberOfBullets;
 }
 
 void UTankAimComponent::BeginPlay()
@@ -81,18 +87,22 @@ void UTankAimComponent::BeginPlay()
 
 void UTankAimComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeinSeconds)
+	if (NumberOfBullets <= 0)
+		FiringState = EFiringState::OutOfBullets;
+	else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeinSeconds)
 		FiringState = EFiringState::Reloading;
 	else if (IsBarrelMoving())
 		FiringState = EFiringState::Aiming;
 	else
 	{
-		
 		FiringState = EFiringState::Locked;
-		
 	}
 }
 
+EFiringState UTankAimComponent::GetState() const
+{
+	return FiringState;
+}
 bool UTankAimComponent::IsBarrelMoving()
 {
 	

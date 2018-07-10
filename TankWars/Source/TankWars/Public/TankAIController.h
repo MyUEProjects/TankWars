@@ -27,7 +27,7 @@ private:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-		float MinDistanceFromPlayer = 3000;
+		float MinDistanceFromPlayer = 6000;
 
 	UTankAimComponent *AimComponent;
 	float LaunchSpeed = 4000;

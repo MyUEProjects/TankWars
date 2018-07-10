@@ -14,7 +14,8 @@ enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfBullets
 };
 
 class UTankBarrel;
@@ -50,6 +51,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	int NumberOfBullets = 3;
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 		EFiringState FiringState = EFiringState::Aiming;
@@ -67,4 +70,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 		void Fire();
 	
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+		int GetNumberOfBullets();
+	EFiringState GetState() const;
 };
