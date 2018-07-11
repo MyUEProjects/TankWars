@@ -8,10 +8,15 @@ void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
-	auto ControlledTank = Cast<ATank>(GetPawn());
-	AimComponent = ControlledTank->FindComponentByClass<UTankAimComponent>();
+	auto ControlledTank = (GetPawn());
+	
+
 	if (ensure(PlayerTank) && ensure(ControlledTank))
 	{
+		AimComponent = ControlledTank->FindComponentByClass<UTankAimComponent>();
+		if (!ensure(AimComponent))
+			return;
+
 		MoveToActor(PlayerTank, MinDistanceFromPlayer);
 		AimComponent->AimAt(PlayerTank->GetActorLocation(),LaunchSpeed);
 		if(AimComponent->GetState() == EFiringState::Locked)
@@ -22,6 +27,6 @@ void ATankAIController::Tick(float DeltaTime)
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
