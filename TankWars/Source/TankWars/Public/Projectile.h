@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Runtime/Engine/Classes/Particles/ParticleSystemComponent.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -14,6 +16,10 @@ class TANKWARS_API AProjectile : public AActor
 	
 private:
 	UProjectileMovementComponent *ProjectileMovement;
+	UPROPERTY(VisibleAnywhere,Category = "Components")
+		UStaticMeshComponent *CollisionMesh;
+	UPROPERTY(VisibleAnywhere,Category = "Components")
+		UParticleSystemComponent *LaunchBlast;
 
 
 public:	

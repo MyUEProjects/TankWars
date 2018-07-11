@@ -74,7 +74,7 @@ void UTankAimComponent::Fire()
 	}
 }
 
-int UTankAimComponent::GetNumberOfBullets()
+int32 UTankAimComponent::GetNumberOfBullets()
 {
 	return NumberOfBullets;
 }

@@ -46,12 +46,14 @@ private:
 		float LaunchSpeed = 4000;
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 		float ReloadTimeinSeconds = 3;
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+		int32 NumberOfBullets = 3;
 	float LastFireTime = 0;
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
 
-	int NumberOfBullets = 3;
+	
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -71,6 +73,6 @@ public:
 		void Fire();
 	
 	UFUNCTION(BlueprintCallable, Category = "Firing")
-		int GetNumberOfBullets();
+		int32 GetNumberOfBullets();
 	EFiringState GetState() const;
 };
