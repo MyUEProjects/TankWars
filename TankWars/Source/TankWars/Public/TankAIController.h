@@ -25,10 +25,15 @@ private:
 	//What happens when the game begins
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+	virtual void SetPawn(APawn *InPawn) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 		float MinDistanceFromPlayer = 6000;
 
 	UTankAimComponent *AimComponent;
 	float LaunchSpeed = 4000;
+
+public:
+	UFUNCTION()
+		void OnTankDeath();
 };

@@ -9,6 +9,7 @@
 #include "PhysicsEngine/RadialForceComponent.h"
 #include "Engine/World.h"
 #include "Runtime/Engine/Classes/Particles/ParticleSystemComponent.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 #include "Projectile.generated.h"
 
 UCLASS()
@@ -29,13 +30,15 @@ private:
 	
 	UPROPERTY(EditAnywhere, Category = Setup)
 		float DestroyTimer = 10.0f;
+	UPROPERTY(EditAnywhere, Category = Setup)
+		float DamageToApply = 20.0f;
 
 	void OnTimerExpire();
 	UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 
-public:	
+public:
 	// Constructor
 	AProjectile();
 	virtual void BeginPlay() override;

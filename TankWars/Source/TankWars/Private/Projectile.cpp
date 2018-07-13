@@ -43,8 +43,11 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 {
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
+	bool TestVal = UGameplayStatics::ApplyRadialDamage(this, DamageToApply, GetActorLocation(), ExplosionForce->Radius, UDamageType::StaticClass(), TArray<AActor *>());
+	//TODO Remove TestVal
+	UE_LOG(LogTemp,Warning, TEXT("Did I hit? : %d"),TestVal)
 	ExplosionForce->FireImpulse();
-
+	
 	SetRootComponent(LaunchBlast);
 	CollisionMesh->DestroyComponent();
 	FTimerHandle Timer;
@@ -54,6 +57,5 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, U
 
 void AProjectile::OnTimerExpire()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Here"))
 	Destroy();
 }
