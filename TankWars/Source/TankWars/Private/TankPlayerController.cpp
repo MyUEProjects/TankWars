@@ -16,9 +16,14 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 	AimComponent = GetControlledTank()->FindComponentByClass<UTankAimComponent>();
 	if (AimComponent)
-			FoundAimingComponent(AimComponent);
+		FoundAimingComponent(AimComponent);
 	else
-		UE_LOG(LogTemp,Warning,TEXT("Player Controller Can't Find Aiming Component"))
+		UE_LOG(LogTemp, Warning, TEXT("Player Controller Can't Find Aiming Component"))
+
+	auto PossessedTank = GetControlledTank();
+	if (!ensure(PossessedTank))
+		return;
+	PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
 }
 
 //Executed every frame
@@ -66,7 +71,7 @@ bool ATankPlayerController::GetVectorHitLocation(FVector CameraLookDirection, FV
 	FHitResult HitResult;
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + CameraLookDirection * LineTraceRange;
-	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility))
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Camera))
 	{
 		HitLocation = HitResult.Location;
 		return true;
@@ -76,4 +81,9 @@ bool ATankPlayerController::GetVectorHitLocation(FVector CameraLookDirection, FV
 		UE_LOG(LogTemp, Warning, TEXT("Unable to line Trace"));
 		return false;
 	}
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	StartSpectatingOnly();
 }

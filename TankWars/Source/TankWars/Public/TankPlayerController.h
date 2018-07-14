@@ -52,4 +52,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 		void FoundAimingComponent(UTankAimComponent *AimingComponentReference);
 
+public:
+	UFUNCTION()
+		void OnTankDeath();
 };

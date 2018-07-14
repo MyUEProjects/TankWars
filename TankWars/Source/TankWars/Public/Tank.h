@@ -22,7 +22,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		int32 StartingHealth = 100;
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		int32 CurrentHealth = StartingHealth;
+		int32 CurrentHealth;
 
 public:
 	FTankDelegate OnDeath;
@@ -30,6 +30,8 @@ public:
 	
 	UFUNCTION(BlueprintPure,Category = "Health")
 		float GetHealthPercentage() const;
+
+	virtual void BeginPlay() override;
 	
 	
 };

@@ -10,6 +10,7 @@ ATank::ATank()
 {
  	// Sets it so that this pawn cannot tick
 	PrimaryActorTick.bCanEverTick = false;
+	
 
 }
 
@@ -28,4 +29,10 @@ float ATank::TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEv
 float ATank::GetHealthPercentage() const
 {
 	return (float)CurrentHealth / (float)StartingHealth;
+}
+
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();
+	CurrentHealth = StartingHealth;
 }
