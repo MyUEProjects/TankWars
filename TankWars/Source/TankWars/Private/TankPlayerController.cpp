@@ -36,7 +36,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimAtCrosshair()
 {
-	if (!ensure(GetControlledTank()))		//In case no tank, don't actually do anything
+	if (!(GetControlledTank()))		//In case no tank, don't actually do anything
 		return; 
 		
 	if (GetSightHitRayLocation(HitLocation))

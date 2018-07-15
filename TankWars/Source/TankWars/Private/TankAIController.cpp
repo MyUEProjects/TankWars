@@ -11,7 +11,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto ControlledTank = (GetPawn());
 	
 
-	if (ensure(PlayerTank) && ensure(ControlledTank))
+	if ((PlayerTank) && (ControlledTank))
 	{
 		AimComponent = ControlledTank->FindComponentByClass<UTankAimComponent>();
 		if (!ensure(AimComponent))
@@ -36,7 +36,7 @@ void ATankAIController::SetPawn(APawn *InPawn)
 	if (InPawn)
 	{
 		auto PossessedTank = Cast<ATank>(InPawn);
-		if (!ensure(PossessedTank)) { return; }
+		if (!(PossessedTank)) { return; }
 		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);
 	}
 
