@@ -21,7 +21,7 @@ void ATankPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Player Controller Can't Find Aiming Component"))
 
 	auto PossessedTank = GetControlledTank();
-	if (!ensure(PossessedTank))
+	if (!(PossessedTank))
 		return;
 	PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);
 }
